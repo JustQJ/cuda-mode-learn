@@ -1,6 +1,8 @@
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 # 基本知识
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 将浮点矩阵量化到$k$位的int类型，就是做一个映射函数，即
 $$
 f(x) = x/s - z
