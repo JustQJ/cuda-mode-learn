@@ -1,3 +1,4 @@
 lectures-main
 *build
 __pycache__/
+*.pt
