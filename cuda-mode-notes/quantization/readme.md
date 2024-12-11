@@ -1,8 +1,7 @@
 
 
 # 基本知识
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+## 量化原理
 将浮点矩阵量化到$k$位的int类型，就是做一个映射函数，即
 $$
 f(x) = x/s - z
@@ -23,11 +22,19 @@ $$
 
 最大最小值映射是最基本的，现在的方法主要的优化基本就是优化离群值，即$x$中有一些值异常的大或者小，分布不均匀。         
 
+## 量化粒度
+
 **per-tensor quantization:** 一个张量矩阵使用同一个scale和zero，scale和zero占用的内存小，当然误差变大。
 
 **per-channel quantization:** 一个通道使用一个scale和zero（对于一个二维权重矩阵，就是一行或者一列），scale和zero占用的内存大，当然误差变小。
 
-**per-group quantization:** 对上面进行折中，将多个通道形成一个group，然后一个group使用一个scale和zero，例如一般使用128作为group的大小。
+**per-group quantization:** 对上面进行折中，将多个通道形成一个group，然后一个group使用一个scale和zero，例如一般使用128作为group的大小。也可以是多个元素形成一个group，即比per-channel粒度更小。
+
+
+## 量化种类
+1. 只量化权重：在计算是需要先将权重反量化为激活的类型，然后计算。
+2. 权重+激活量化：在计算时不需要反量化，而是将激活也量化为权重的类型，然后进行计算。
+
 
 **量化的主要好处：（1）减少模型的权重的内存占用；（2）减少计算过程中对内存带宽的需求。**
 
@@ -228,9 +235,6 @@ $$
     然后对每个元素进行反量化。
 
 **上面的实现很简单，没有优化，所以误差很大，同时速度也比较慢。**
-
-
-
 
 
 
